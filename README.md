@@ -13,7 +13,7 @@ A beautiful and simple To-Do list app built with Flutter and Hive. Easily add, c
 ![Add Task Dialog](lib/screenshots/add_task_dialog.png)
 
 ### ❌ Delete Confirmation
-![Delete Dialog](/libscreenshots/delete_dialog.png)
+![Delete Dialog](lib/screenshots/delete_dialog.png)
 
 ---
 
