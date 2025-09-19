@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do_app/colors/homepage_colors.dart';
 
 class ToDoTile extends StatelessWidget {
-  
   final String taskName;
   final bool taskCompleted;
-  Function(bool?)? onChanged;
-  Function(BuildContext)? deleteFunction;
-  
-  
+  final String createdAt;
+  final Function(bool?)? onChanged;
+  final Function(BuildContext)? deleteFunction;
+
   ToDoTile({
     super.key,
     required this.taskName,
+    required this.createdAt,
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
@@ -20,10 +21,18 @@ class ToDoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double font = screenWidth * 0.043;
+    double iconSize = screenWidth * 0.06;
+
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24),
+          padding: EdgeInsets.only(
+            left: screenWidth * 0.045,
+            right: screenWidth * 0.045,
+            top: screenWidth * 0.044,
+          ),
           child: Material(
             elevation: 1.5,
             borderRadius: BorderRadius.circular(12),
@@ -43,55 +52,78 @@ class ToDoTile extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Container(
-                padding: EdgeInsets.all(19),
-                decoration: BoxDecoration(
-                  color: listTileColor,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      // ignore: deprecated_member_use
-                      color: Colors.grey.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
+              child: Column(
+                children: [
+                  Container(
+                    // height: 110,
+                    padding: EdgeInsets.all(screenWidth* 0.03),
+                    decoration: BoxDecoration(
+                      color: listTileColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          // ignore: deprecated_member_use
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    //Checkbox
-                    Transform.scale(
-                      scale: 1.1,
-                      child: Checkbox(
-                        value: taskCompleted,
-                        onChanged: onChanged,
-                        activeColor: Theme.of(context).primaryColor,
-                        // activeColor: Colors.green[600],
-                      ),
-                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            //Checkbox
+                            Transform.scale(
+                              scale: screenWidth* 0.0023,
+                              child: Checkbox(
+                                value: taskCompleted,
+                                onChanged: onChanged,
+                                activeColor: Theme.of(context).primaryColor,
+                                // activeColor: Colors.green[600],
+                              ),
+                            ),
 
-                    //User's Tasks
-                    Text(
-                      taskName,
-                      style: TextStyle(
-                        fontSize: 17.2,
-                        // decoration:
-                        //     taskCompleted
-                        //         ? TextDecoration.lineThrough
-                        //         : TextDecoration.none,
-                        // color:
-                        //     taskCompleted ? Colors.green[900] : Colors.black87,
-                        decoration:
-                            taskCompleted ? TextDecoration.lineThrough : null,
-                        color: taskCompleted ? Colors.grey : Colors.black87,
-                        fontStyle:
-                            taskCompleted ? FontStyle.italic : FontStyle.normal,
-                        fontWeight:
-                            taskCompleted ? FontWeight.w400 : FontWeight.w500,
-                      ),
+                            //User's Task
+                            Expanded(
+                              child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                //  textAlign: TextAlign.center,
+                                maxLines: 3,
+                                taskName,
+                                style: TextStyle(
+                                  fontSize: font,
+                                  decoration:
+                                      taskCompleted
+                                          ? TextDecoration.lineThrough
+                                          : null,
+                                  color:
+                                      taskCompleted
+                                          ? Colors.grey
+                                          : Colors.black87,
+                                  fontStyle:
+                                      taskCompleted
+                                          ? FontStyle.italic
+                                          : FontStyle.normal,
+                                  fontWeight:
+                                      taskCompleted
+                                          ? FontWeight.w400
+                                          : FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          DateFormat(
+                            'MMM d, y – h:mm a',
+                          ).format(DateTime.parse(createdAt)),
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

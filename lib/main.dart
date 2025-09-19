@@ -4,10 +4,10 @@ import 'package:to_do_app/colors/homepage_colors.dart';
 import 'package:to_do_app/pages/home_page.dart';
 
 void main() async {
-  //initialize the hive 
+  //initialize the hive
   await Hive.initFlutter();
-  //box
-  var box = await Hive.openBox('userTasks');
+  //open box
+  await Hive.openBox('userTasks');
 
   runApp(const MyApp());
 }
@@ -25,9 +25,10 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: backgroundColor,
         floatingActionButtonTheme: FloatingActionButtonThemeData(),
-        checkboxTheme: CheckboxThemeData(
-          fillColor: WidgetStateProperty.all(checkboxColor),
-        ),
+
+        // checkboxTheme: CheckboxThemeData(
+        //   fillColor: WidgetStateProperty.all(checkboxColor),
+        // ),
       ),
     );
   }

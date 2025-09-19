@@ -18,6 +18,7 @@ class DialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FocusScope.of(context).requestFocus(_focusNode);
     });
@@ -29,27 +30,36 @@ class DialogBox extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          color: Color(0xFF4285F4), // Google Blue
+          color: Color(0xFF4285F4),
           fontWeight: FontWeight.bold,
+          fontSize: screenWidth * 0.05,
         ),
       ),
 
-      content:
-      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      TextField(
-        style: TextStyle(color: Colors.black, fontSize: 19.0),
-        textCapitalization: TextCapitalization.sentences,
-        //  autofocus: true,
-        autocorrect: true,
-        controller: controller,
-        focusNode: _focusNode,
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF34A853), width: 2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          hintText: "Enter task here",
-          hintStyle: TextStyle(color: Colors.grey[500]),
+      content: SizedBox(
+        width: screenWidth * 0.8, // 80% of screen width
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: screenWidth * 0.04,
+              ),
+              textCapitalization: TextCapitalization.sentences,
+              autocorrect: true,
+              controller: controller,
+              focusNode: _focusNode,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF34A853), width: 1.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                hintText: "Enter task here",
+                hintStyle: TextStyle(color: Colors.grey[500]),
+              ),
+            ),
+          ],
         ),
       ),
 

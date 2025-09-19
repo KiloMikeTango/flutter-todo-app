@@ -14,13 +14,14 @@ class DialogButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   double screenWidth = MediaQuery.of(context).size.width;
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       onPressed: onPressed,
       // color: Colors.amber[500],
       child: Text(
         buttonName,
-        style: TextStyle(fontSize: 15.0, color: textcolor),
+        style: TextStyle(fontSize: screenWidth* 0.035, color: textcolor),
       ),
     );
   }

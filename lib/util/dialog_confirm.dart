@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/util/dialog_buttons.dart';
 
 class DialogConfirm extends StatelessWidget {
   final controller;
@@ -8,10 +7,10 @@ class DialogConfirm extends StatelessWidget {
   final Color textcolor;
   final Color oktextcolor;
   final Color canceltextcolor;
-  VoidCallback onOkay;
-  VoidCallback onCancel;
+  final VoidCallback onOkay;
+  final VoidCallback onCancel;
 
-  DialogConfirm({
+  const DialogConfirm({
     super.key,
     required this.controller,
     required this.title,
@@ -25,30 +24,106 @@ class DialogConfirm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 8,
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: textcolor,
-          fontSize: titlefsize,
-          fontWeight: FontWeight.bold,
+      insetPadding: EdgeInsets.symmetric(
+        horizontal: screenWidth * 0.08,
+        vertical: screenHeight * 0.12,
+      ),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight * 0.02,
+          horizontal: screenWidth * 0.06,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.warning_amber_rounded,
+              size: screenWidth * 0.13, // ~48
+              color: Colors.redAccent,
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: screenWidth * 0.05, // ~20
+                fontWeight: FontWeight.bold,
+                color: textcolor,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.015),
+            Text(
+              'Are you sure you want to delete this task? This action cannot be undone.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: screenWidth * 0.037, // ~14
+                color: Colors.grey[700],
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Row(
+              children: [
+               SizedBox(width: screenWidth * 0.05),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: onCancel,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey[300],
+                      foregroundColor: canceltextcolor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.012,
+                      ),
+                    ),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: screenWidth * 0.03),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: onOkay,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      foregroundColor: oktextcolor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.012,
+                      ),
+                    ),
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                      color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+           
+              ],
+            ),
+          SizedBox(height: screenWidth* 0.02,)
+          ],
         ),
       ),
-      contentPadding: EdgeInsets.all(20),
-      actions: [
-        DialogButton(
-          buttonName: 'CANCEL',
-          textcolor: canceltextcolor,
-          onPressed: onCancel,
-        ),
-        DialogButton(
-          buttonName: 'DELETE',
-          textcolor: oktextcolor,
-          onPressed: onOkay,
-        ),
-      ],
     );
   }
 }
