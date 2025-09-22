@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:to_do_app/pages/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -11,6 +12,7 @@ class MyDrawer extends StatelessWidget {
     double font = screenWidth * 0.045;
     double icon = screenWidth * 0.06;
     return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,7 +25,7 @@ class MyDrawer extends StatelessWidget {
               screenWidth * 0.05, // right = 5% of screen width
               screenWidth * 0.05, // bottom = 5% of screen width
             ),
-            color: Color(0xFF4285F4),
+            color: Theme.of(context).colorScheme.surface,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,9 +55,15 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(
               Icons.person_outline,
               size: icon,
-              color: Colors.grey[800],
+              color: Theme.of(context).iconTheme.color,
             ),
-            title: Text('Contact', style: TextStyle(fontSize: font)),
+            title: Text(
+              'Contact',
+              style: TextStyle(
+                fontSize: font,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
             onTap: () {
               Fluttertoast.showToast(
                 backgroundColor: Colors.grey[700],
@@ -72,10 +80,23 @@ class MyDrawer extends StatelessWidget {
 
           //Settings
           ListTile(
-            leading: Icon(Icons.settings_outlined, color: Colors.grey[800]),
-            title: Text('Settings', style: TextStyle(fontSize: font)),
+            leading: Icon(
+              Icons.settings_outlined,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            title: Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: font,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
             },
           ),
           Spacer(),

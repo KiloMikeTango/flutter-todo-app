@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
+// import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_app/data/database.dart';
 import 'package:to_do_app/util/dialog_box.dart';
@@ -48,8 +48,14 @@ class _HomePageState extends State<HomePage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             showCloseIcon: true,
-            backgroundColor: Colors.blue,
-            content: Text("Welcome back!", style: TextStyle(fontSize: 16.0)),
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            content: Text(
+              "Welcome back!",
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
           ),
         );
       }
@@ -77,14 +83,18 @@ class _HomePageState extends State<HomePage> {
 
   //Delete task in a minute afer checkbox is checked
   Future deleteCheckedTask(int index) async {
-    Future.delayed(Duration(minutes: 1), () => deleteTask(index));
+    Future.delayed(Duration(seconds: 10), () => deleteTask(index));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         showCloseIcon: true,
-        backgroundColor: Colors.green,
+        closeIconColor: Theme.of(context).snackBarTheme.closeIconColor,
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
         content: Text(
-          "Task will be deleted in a minute!",
-          style: TextStyle(fontSize: 16.0),
+          "Task will be deleted in 10 seconds!",
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );
@@ -98,10 +108,14 @@ class _HomePageState extends State<HomePage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           showCloseIcon: true,
-          backgroundColor: Colors.red,
+          closeIconColor: Theme.of(context).snackBarTheme.closeIconColor,
+          backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
           content: Text(
             "Task can't be empty!",
-            style: TextStyle(fontSize: 17.0),
+            style: TextStyle(
+              fontSize: 17.0,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
       );
@@ -166,11 +180,13 @@ class _HomePageState extends State<HomePage> {
 
     final currentWidth = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       // TO-DO-TILES app bar
       drawer: MyDrawer(),
+
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xFF4285F4),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 4,
         iconTheme: IconThemeData(color: Colors.white),
         leading: Builder(
@@ -190,7 +206,7 @@ class _HomePageState extends State<HomePage> {
           "TO-DO-TILES",
           style: TextStyle(
             fontSize: screenWidth * 0.055,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.2,
           ),
@@ -203,11 +219,7 @@ class _HomePageState extends State<HomePage> {
         height: screenWidth * 0.13,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          gradient: LinearGradient(
-            colors: [Color(0xFF34A853), Color(0xFF0F9D58)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: Theme.of(context).colorScheme.surface,
         ),
         child: IconButton(
           icon: Icon(Icons.add, color: Colors.white, size: screenWidth * 0.06),

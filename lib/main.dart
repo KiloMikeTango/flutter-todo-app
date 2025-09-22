@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:to_do_app/colors/homepage_colors.dart';
 import 'package:to_do_app/pages/home_page.dart';
+import 'package:to_do_app/theme/theme.dart';
+import 'package:to_do_app/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   //initialize the hive
@@ -21,15 +24,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       debugShowCheckedModeBanner: false,
 
-      theme: ThemeData(
-        primaryColor: primaryColor,
-        scaffoldBackgroundColor: backgroundColor,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(),
-
-        // checkboxTheme: CheckboxThemeData(
-        //   fillColor: WidgetStateProperty.all(checkboxColor),
-        // ),
-      ),
+      theme: lightMode,
     );
   }
 }
