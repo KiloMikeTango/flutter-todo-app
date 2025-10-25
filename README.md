@@ -37,9 +37,3 @@ lib/
 ├── util/               # Reusable widgets (Dialog, Tile, etc.)
 └── main.dart           # Entry point
 
-
-
-
-
-GitHub: @sutoji5
- 5f216eb474efa861b5adb285559ae50bcc00e680
